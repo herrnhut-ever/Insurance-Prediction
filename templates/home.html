@@ -1,40 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Predict Insurance Bill</title>
-  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-<!-- FastAPI's StaticFiles mount serves this folder directly at /static -->
-<link type="text/css" rel="stylesheet" href="/static/style.css">
-  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insurance Charge Predictor</title>
+  <link href='https://fonts.googleapis.com/css?family=Poppins:300,400,600,700' rel='stylesheet' type='text/css'>
+  <link type="text/css" rel="stylesheet" href="/static/style.css">
 </head>
-
 <body>
- <div class="login">
-	<h1>Predict Insurance Bill</h1>
+  <main class="container">
+    <div class="card">
+      <!-- Header Section -->
+      <header class="header">
+        <h1 class="title">💰 Insurance Charge Predictor</h1>
+        <p class="subtitle">Estimate your expected medical insurance charges</p>
+      </header>
 
-     <!-- Form to enter new data for predictions  -->
-    <!-- Flask's url_for() is gone - FastAPI routes are just plain paths -->
-    <form action="/predict" method="POST">
-      <input type="text" name="age" placeholder="Age" required="required" /><br>
-    	<input type="text" name="sex" placeholder="Sex" required="required" /><br>
-        <input type="text" name="bmi" placeholder="BMI" required="required" /><br>
-        <input type="text" name="children" placeholder="Children" required="required" /><br>
-        <input type="text" name="smoker" placeholder="Smoker" required="required" /><br>
-        <input type="text" name="region" placeholder="Region" required="required" /><br>
+      <!-- Form Section -->
+      <section class="form-section">
+        <form action="/predict" method="POST" class="form">
+          <div class="form-grid">
+            <!-- Age Input -->
+            <div class="form-group">
+              <label for="age">Age (Years)</label>
+              <input type="number" id="age" name="age" placeholder="e.g., 25" min="18" max="120" required>
+              <span class="help-text">Your age in years</span>
+            </div>
 
-        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
-    </form>
+            <!-- Sex Select -->
+            <div class="form-group">
+              <label for="sex">Sex</label>
+              <select id="sex" name="sex" required>
+                <option value="" disabled selected>Choose...</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+              <span class="help-text">Select your sex</span>
+            </div>
 
-   <br>
-   <br>
-  
-   
- </div>
- {{pred}}
+            <!-- BMI Input -->
+            <div class="form-group">
+              <label for="bmi">BMI</label>
+              <input type="number" id="bmi" name="bmi" placeholder="e.g., 27.9" min="10" max="60" step="0.1" required>
+              <span class="help-text">Body mass index</span>
+            </div>
 
+            <!-- Children Input -->
+            <div class="form-group">
+              <label for="children">Number of Dependents</label>
+              <input type="number" id="children" name="children" placeholder="e.g., 0" min="0" max="10" required>
+              <span class="help-text">Number of children</span>
+            </div>
+
+            <!-- Smoker Select -->
+            <div class="form-group">
+              <label for="smoker">Smoker</label>
+              <select id="smoker" name="smoker" required>
+                <option value="" disabled selected>Choose...</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+              <span class="help-text">Smoking status</span>
+            </div>
+
+            <!-- Region Select -->
+            <div class="form-group">
+              <label for="region">Region</label>
+              <select id="region" name="region" required>
+                <option value="" disabled selected>Choose...</option>
+                <option value="northeast">Northeast</option>
+                <option value="northwest">Northwest</option>
+                <option value="southeast">Southeast</option>
+                <option value="southwest">Southwest</option>
+              </select>
+              <span class="help-text">Geographic region</span>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="btn-predict">Get Prediction</button>
+        </form>
+      </section>
+
+      <!-- Result Section -->
+      {% if pred %}
+      <section class="result-section">
+        <div class="result-card">
+          <h2 class="result-title">📊 Prediction Result</h2>
+          <p class="result-text">{{ pred }}</p>
+        </div>
+      </section>
+      {% endif %}
+    </div>
+  </main>
 </body>
 </html>
