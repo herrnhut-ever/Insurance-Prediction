@@ -1,0 +1,16 @@
+# Keeps the build context small and the image free of local/dev-only junk.
+# (Everything here is excluded when Docker copies files in with `COPY . .`)
+
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+.git/
+.gitignore
+.vscode/
+.idea/
+*.ipynb
+.ipynb_checkpoints/
+README.md
